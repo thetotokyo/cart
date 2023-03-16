@@ -9,16 +9,23 @@ $(document).ready(function(){
         $.getJSON('./server.php?load=true', function(data){
             $('#dashboardTable').empty();
             $.each(data, function(i, field){
+
+                let color = '';
+                if(i % 2 == 0)
+                {
+                    color = 'rgba(3,3,3,0.1)';
+                }
+
                 $('#dashboardTable').append(
-                '<tr class="border-b dark:border-neutral-500">'+
-                    '<td class="whitespace-nowrap px-6 py-4 font-medium">'+(i+1)+'</td>'+
-                    '<td class="whitespace-nowrap px-10 py-4">'+field.item_name+'</td>'+
-                    '<td class="whitespace-nowrap px-6 py-4">'+field.item_price+'</td>'+
-                    '<td class="whitespace-nowrap px-6 py-4"><input id="check_'+field.item_id+'" type="checkbox" /></td>'+
-                    '<td class="whitespace-nowrap px-6 py-4">'+
+                '<tr class="border-b dark:border-neutral-500" style="background: '+color+'">'+
+                    '<td class="whitespace-nowrap px-6 py-4 font-medium" style="margin: 5px 0px;">'+(i+1)+'</td>'+
+                    '<td class="whitespace-nowrap px-10 py-4" style="margin: 5px 0px;">'+field.item_name+'</td>'+
+                    '<td class="whitespace-nowrap px-6 py-4" style="margin: 5px 0px;">R'+field.item_price+'</td>'+
+                    '<td class="whitespace-nowrap px-6 py-4" style="margin: 5px 0px;"><input id="check_'+field.item_id+'" type="checkbox" /></td>'+
+                    '<td class="whitespace-nowrap px-6 py-4" style="margin: 5px 0px;">'+
                         '<div style="display: inline;">'+
                             '<button id="edit_'+field.item_id+'" type="button" style="color: blue;">Edit</button>'+
-                            '<button id="dlt_'+field.item_id+'" type="button" style="color: red; margin-left: 1%;">Delete</button>'+
+                            '<button id="dlt_'+field.item_id+'" type="button" style="color: red;">Delete</button>'+
                         '</div>'+
                     '</td>'+
                 '</tr>'
