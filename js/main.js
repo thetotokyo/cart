@@ -12,13 +12,13 @@ $(document).ready(function(){
                 $('#dashboardTable').append(
                 '<tr class="border-b dark:border-neutral-500">'+
                     '<td class="whitespace-nowrap px-6 py-4 font-medium">'+(i+1)+'</td>'+
-                    '<td class="whitespace-nowrap px-6 py-4">'+field.item_name+'</td>'+
+                    '<td class="whitespace-nowrap px-10 py-4">'+field.item_name+'</td>'+
                     '<td class="whitespace-nowrap px-6 py-4">'+field.item_price+'</td>'+
                     '<td class="whitespace-nowrap px-6 py-4"><input id="check_'+field.item_id+'" type="checkbox" /></td>'+
                     '<td class="whitespace-nowrap px-6 py-4">'+
-                        '<div class="flex flex-rowstify-content-center align-items-center">'+
-                            '<button id="edit_'+field.item_id+'" type="button" class="rounded-lg text-blue-600">Edit</button>'+
-                            '<button id="dlt_'+field.item_id+'" type="button" class="rounded-lg m-3 text-red-600">Delete</button>'+
+                        '<div style="display: inline;">'+
+                            '<button id="edit_'+field.item_id+'" type="button" style="color: blue;">Edit</button>'+
+                            '<button id="dlt_'+field.item_id+'" type="button" style="color: red; margin-left: 1%;">Delete</button>'+
                         '</div>'+
                     '</td>'+
                 '</tr>'
