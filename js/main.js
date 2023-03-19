@@ -1,12 +1,13 @@
 $(document).ready(function(){
 
+    const baseURL = 'https://mainmethod.co.za/cart';
     let currentID = -1;
 
     loadItems();
 
     function loadItems()
     {
-        $.getJSON('./server.php?load=true', function(data){
+        $.getJSON(baseURL+'/server.php?load=true', function(data){
             $('#dashboardTable').empty();
             $.each(data, function(i, field){
 
@@ -43,7 +44,7 @@ $(document).ready(function(){
                         status = 'false';
                     }
 
-                    $.get('./server.php?updateStatus=true&status='+status+'&id='+field.item_id, function(res){
+                    $.get(baseURL+'/server.php?updateStatus=true&status='+status+'&id='+field.item_id, function(res){
                         if(res)
                         {
                             alert('Item successfully updated!')
@@ -58,7 +59,7 @@ $(document).ready(function(){
                 $('#dlt_'+field.item_id).click(function(){
                     if(window.confirm('Are you sure you want to delete this item?') == true)
                     {
-                        $.get('./server.php?delete=true&id='+field.item_id, function(res){
+                        $.get(baseURL+'/server.php?delete=true&id='+field.item_id, function(res){
                             if(res)
                             {
                                 alert('Item successfully deleted!');
@@ -109,7 +110,7 @@ $(document).ready(function(){
         $('#btnAdd').attr('disabled','disabled');
             
             $.ajax({
-                url: './server.php?add=true',
+                url: baseURL+'/server.php?add=true',
                 type: 'POST',
                 data: new FormData(document.getElementById('addForm')),
                 contentType:false,
@@ -140,7 +141,7 @@ $(document).ready(function(){
         $('#btnUpdate').attr('disabled','disabled');
             
             $.ajax({
-                url: './server.php?update=true&id='+currentID,
+                url: baseURL+'/server.php?update=true&id='+currentID,
                 type: 'POST',
                 data: new FormData(document.getElementById('updateForm')),
                 contentType:false,
