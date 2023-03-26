@@ -55,14 +55,17 @@
             {
               $shoppingCart->page = 'Add';
             }
+      
 
-            if($shoppingCart->page === 'Add')
+            if($shoppingCart->page == 'Add')
             {
-              $shoppingCart->viewAddEdit('Add');
+              $shoppingCart->page = 'Add';
+              $shoppingCart->toggleAddEdit('Add');
             }
-            else if($shoppingCart->page === 'Edit')
+            else if($shoppingCart->page == 'Edit')
             {
-              $shoppingCart->viewAddEdit('Edit', $shoppingCart->selectItem);
+              $shoppingCart->page = 'Edit';
+              $shoppingCart->toggleAddEdit('Edit', $shoppingCart->selectItem);
             }
             else if(isset($_GET['updateStatus']))
             {
@@ -75,6 +78,17 @@
                 }
               }
             }
+            else if(isset($_POST['btnAdd']))
+              {
+                if($_POST['txtID'] == '')
+                {
+                    $shoppingCart->add($_POST['txtName'], $_POST['txtPrice']);
+                }
+                else
+                {
+                    $shoppingCart->update($_POST['txtID'] , $_POST['txtName'], $_POST['txtPrice']);
+                }
+              }
             ?>
         </div>
     </div>

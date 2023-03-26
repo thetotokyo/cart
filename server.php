@@ -12,7 +12,10 @@ class ShoppingCart
         $cartCtrl = new CartCtrl();
         $response = $cartCtrl->addItem($item_name, $item_price);
 
-        echo $response;
+        if($response)
+        {
+            header('Location: ./');
+        }
     }
 
     function update($item_id, $item_name, $item_price)
@@ -20,7 +23,10 @@ class ShoppingCart
         $cartCtrl = new CartCtrl();
         $response = $cartCtrl->amendItem($item_id, $item_name, $item_price);
 
-        return $response;
+        if($response)
+        {
+            header('Location: ./');
+        }
     }
     function delete($item_id)
     {
@@ -80,46 +86,37 @@ class ShoppingCart
             $res = $this->delete($row['item_id']);
             if($res)
             {
-                header("Refresh:0");
+                header('Location: ./');
             }
           }
         }
 
     }
 
-    function viewAddEdit($type, $item = ['item_id'=> '', 'item_name'=> '', 'item_price'=> '', 'item_status'=> ''])
+    function toggleAddEdit($type, $item = ['item_id'=> '', 'item_name'=> '', 'item_price'=> '', 'item_status'=> ''])
     {
         ?>
-              <form id="addForm" class="bg-blue-600 p-10 w-full" method="POST" enctype="multipart/form-data" >
-                  <h1 class="font-bold text-2xl"><?php echo $type ?> Item</h1>
-                  <div class="mt-5">
-                      <label>Item Name</label><br>
-                      <input class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-black" type="text"  required name="txtName" placeholder="Name"/>
-                  </div>
-                  <div class="mt-5">
-                      <label>Item Price</label><br>
-                      <input class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-black" type="number"  step="0.1" required name="txtPrice" placeholder="Price"/>
-                  </div>
-                  <div class="row">
-                    <input class="p-3 px-5 mt-5 text-white bg-green-600 rounded" type="submit" id="btnSubmit" name="btnSubmit" value="Submit"/>
-                    <input class="p-3 px-5 mt-5 text-white bg-red-600 rounded" type="button" onclick="window.location.href = './'" value="Cancel"/>
-                  </div>
-              </form>
-              <?php
+          <form id="addForm" class="bg-blue-600 p-10 w-full" method="POST" >
+              <h1 class="font-bold text-2xl"><?php echo $type ?> Item</h1>
+              <input class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-black hidden" type="text" value="<?php echo $item['item_id']; ?>" name="txtID" placeholder="Name"/>
 
-              if(isset($_POST['btnSubmit']))
-              {
-                if($type === 'Add')
-                {
-                    $this->add($_POST['txtName'], $_POST['txtPrice']);
-                }
-                else
-                {
-                    $this->update($item['item_id'] , $_POST['txtName'], $_POST['txtPrice']);
-                }
-              }
-              
+              <div class="mt-5">
+                  <label>Item Name</label><br>
+                  <input class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-black" type="text" value="<?php echo $item['item_name']; ?>"  required name="txtName" placeholder="Name"/>
+              </div>
+              <div class="mt-5">
+                  <label>Item Price</label><br>
+                  <input class="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-black" type="number" value="<?php echo $item['item_price']; ?>" step="0.1" required name="txtPrice" placeholder="Price"/>
+              </div>
+              <div class="row">
+                <input class="p-3 px-5 mt-5 text-white bg-green-600 rounded" type="submit" id="btnAdd" name="btnAdd" value="Submit"/>
+                <input class="p-3 px-5 mt-5 text-white bg-red-600 rounded" type="button" onclick="window.location.href = './'" value="Cancel"/>
+              </div>
+          </form>
+        <?php 
+        
     }
+    
 
     
 }
