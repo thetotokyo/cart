@@ -2,41 +2,49 @@
 
 include_once('includes/autoload.inc.php');
 
-
-if(isset($_GET['add']))
+class ShoppingCart 
 {
-    $cartCtrl = new CartCtrl();
-    $response = $cartCtrl->addItem($_POST['txtName'], $_POST['txtPrice']);
+        
+    function add($item_name, $item_price)
+    {
+        $cartCtrl = new CartCtrl();
+        $response = $cartCtrl->addItem($item_name, $item_price);
 
-    echo $response;
-}
-else if(isset($_GET['update']))
-{
-    $cartCtrl = new CartCtrl();
-    $response = $cartCtrl->amendItem($_GET['id'], $_POST['txtUpdateName'], $_POST['txtUpdatePrice']);
+        echo $response;
+    }
 
-    echo $response;
-}
-else if(isset($_GET['load']))
-{
-    $cartView = new CartView();
-    $response = $cartView->displayItems();
+    function update($item_id, $item_name, $item_price)
+    {
+        $cartCtrl = new CartCtrl();
+        $response = $cartCtrl->amendItem($item_id, $item_name, $item_price);
 
-    echo json_encode($response);
-}
-else if(isset($_GET['delete']))
-{
-    $cartCtrl = new CartCtrl();
-    $response = $cartCtrl->deleteItem($_GET['id']);
+        return $response;
+    }
 
-    echo $response;
-}
-else if(isset($_GET['updateStatus']))
-{
-    $cartCtrl = new CartCtrl();
-    $response = $cartCtrl->amendItemStatus($_GET['id'], $_GET['status']);
+    function load()
+    {
+        $cartView = new CartView();
+        $response = $cartView->displayItems();
 
-    echo $response;
+        return $response;
+    }
+
+    function delete($item_id)
+    {
+        $cartCtrl = new CartCtrl();
+        $response = $cartCtrl->deleteItem($item_id);
+
+        return $response;
+    }
+
+    function updateStatus($item_id, $item_status)
+    {
+        $cartCtrl = new CartCtrl();
+        $response = $cartCtrl->amendItemStatus($item_id, $item_status);
+
+        return $response;
+    }
 }
+
 
 ?>
