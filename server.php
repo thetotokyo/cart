@@ -58,9 +58,9 @@ class ShoppingCart
         foreach($response as $row)
         {
           $count++;
-          $status = $row['item_status'] === 'true' ? 'checked' : '';
+          $status = $row['item_status'] === 'true' ? 'checked' : ''; //Decide whether an item is checked or not
           
-          
+          //Render table rows
           ?><tr class="border-b dark:border-neutral-500">
                 <td class="whitespace-nowrap px-6 py-4 font-medium"><?php echo $count ?></td>
                 <td class="whitespace-nowrap px-6 py-4"><?php echo $row['item_name'] ?></td>
@@ -77,12 +77,13 @@ class ShoppingCart
           
           if(isset($_POST['edit_'.$row['item_id']]))
           {
-            $this->selectItem = $row;
-            $this->page = 'Edit';
-            //header('Location: ?edit=true&item_id='.$row['item_id'].'&item_name='.urlencode($row['item_name']).'&item_price='.$row['item_price']);
-          }
+            $this->selectItem = $row; //set currently selected item 
+            $this->page = 'Edit'; // set page state to trigger display of edit form
+
+         }
           else if(isset($_POST['dlt_'.$row['item_id']]))
           {
+            //Delete item from DB
             $res = $this->delete($row['item_id']);
             if($res)
             {
@@ -95,6 +96,8 @@ class ShoppingCart
 
     function toggleAddEdit($type, $item = ['item_id'=> '', 'item_name'=> '', 'item_price'=> '', 'item_status'=> ''])
     {
+        //Render form to add or edit Item
+        //Set default values to currently selected item if "$type" is Edit 
         ?>
           <form id="addForm" class="bg-blue-600 p-10 w-full" method="POST" >
               <h1 class="font-bold text-2xl"><?php echo $type ?> Item</h1>

@@ -38,7 +38,7 @@
                                 include_once('server.php'); 
 
                                 $shoppingCart = new ShoppingCart();
-
+                                //Load items Table rows
                                 $shoppingCart->load()
                               ?>
                             </tbody>
@@ -51,22 +51,24 @@
         <div class="mt-20 w-80 text-white">
             <?php
             
+            ///Add button action
             if(isset($_POST['btnAddItem']))
             {
               $shoppingCart->page = 'Add';
             }
       
 
+            //Display form to add items
             if($shoppingCart->page == 'Add')
             {
-              $shoppingCart->page = 'Add';
               $shoppingCart->toggleAddEdit('Add');
             }
+            //Display form to edit items
             else if($shoppingCart->page == 'Edit')
             {
-              $shoppingCart->page = 'Edit';
               $shoppingCart->toggleAddEdit('Edit', $shoppingCart->selectItem);
             }
+            //Update item status
             else if(isset($_GET['updateStatus']))
             {
               if(isset($_GET['item_id']) && isset($_GET['item_status']))
@@ -78,14 +80,17 @@
                 }
               }
             }
+           
             else if(isset($_POST['btnAdd']))
               {
                 if($_POST['txtID'] == '')
                 {
+                   //Add item to DB on button click
                     $shoppingCart->add($_POST['txtName'], $_POST['txtPrice']);
                 }
                 else
                 {
+                  //Update item on DB on button click
                     $shoppingCart->update($_POST['txtID'] , $_POST['txtName'], $_POST['txtPrice']);
                 }
               }
