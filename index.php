@@ -12,7 +12,7 @@
 <body>
     
     <div class="p-3 w-full flex flex-row gap-5 justify-center">
-        <div id="dashboard">
+        <div id="dashboard w-full">
             <h1 class="font-bold text-2xl">Shopping Card</h1>
             
             <input class="p-2 px-5 my-5 text-white bg-green-600 rounded" type="button" id="btnAddItem" name="btnAddItem" onclick="window.location.href='?add=true'" value="Add New Item"/>
@@ -84,7 +84,7 @@
                     </div>
                   </div>
         </div>
-        <div class="mt-20 text-white">
+        <div class="mt-20 w-80 text-white">
             <?php
             
             if(isset($_GET['add']))
